@@ -8,12 +8,17 @@
 #include <SDL3/SDL_surface.h>
 #include <SDL3/SDL_video.h>
 #include <SDL3_image/SDL_image.h>
-#include <iterator>
 #include <stdio.h>
-#include <string>
 #include <iostream>
 
+template <typename T>
+void print(const T& arg) {
+    std::cout << arg << std::endl;
+}
+
 int main(int arhc, char* argv[]) {
+    print("Starting");
+
     SDL_Init(SDL_INIT_VIDEO);
 
     SDL_Window* window = SDL_CreateWindow("Sprite Stacking test", 1200, 800, SDL_WINDOW_OPENGL);
@@ -22,16 +27,15 @@ int main(int arhc, char* argv[]) {
     SDL_Event event;
     bool exit = false;
 
-    // Sprite Renderding
-
+    // Sprite Rendering
     SDL_Texture* texture = IMG_LoadTexture(renderer, "./spritesheet.png");
 
-    float width;
-    float height;
-    SDL_GetTextureSize(texture, &width, &height);
-
-    std::cout << width << std::endl;
-    std::cout << height << std::endl;
+    // float width;
+    // float height;
+    // SDL_GetTextureSize(texture, &width, &height);
+    //
+    // std::cout << width << std::endl;
+    // std::cout << height << std::endl;
 
     float posX = 0;
     float posY = 0;
