@@ -44,12 +44,13 @@ int main(int arhc, char* argv[]) {
     // Sprite Rendering
     SDL_Texture* texture = IMG_LoadTexture(renderer, "./spritesheet.png");
 
-    int sprite_count = 2;
-    float sprite_width = 146;
-    float sprite_height = 146;
+    int sprite_count = 5;
+    float sprite_width = 32;
+    float sprite_height = 32;
     float current_layer_gap = 0;
     float pitch_angle = 0.785f;
-    float layer_gap = 10.0;
+    float rotation_angle = 0.0f;
+    float layer_gap = 5.0;
 
     // Create sprites 
     std::vector<Sprite> sprites = {};
@@ -88,6 +89,18 @@ int main(int arhc, char* argv[]) {
                         sprites[i].pitch_angle -= 0.1;
                     }
                 }
+
+                if (event.key.key == SDLK_LEFT) {
+                    for (int i = 0; i < sprite_count; i++) {
+                        rotation_angle -= 1.0f;
+                    }
+                }
+
+                if (event.key.key == SDLK_RIGHT) {
+                    for (int i = 0; i < sprite_count; i++) {
+                        rotation_angle += 1.0f;
+                    }
+                }
             }
         }
 
@@ -110,8 +123,8 @@ int main(int arhc, char* argv[]) {
             SDL_FRect dsRect = {
                 dsPosX,
                 dsPosY - sprite.y_offset,
-                sprite.w,
-                sprite.h * sinf(sprite.pitch_angle)
+                sprite.w * 4,
+                sprite.h * sinf(sprite.pitch_angle) * 4
             };
 
             SDL_RenderTextureRotated(
@@ -119,7 +132,7 @@ int main(int arhc, char* argv[]) {
                 texture,
                 &scRect,
                 &dsRect,
-                0.0,
+                rotation_angle,
                 nullptr,
                 SDL_FLIP_NONE
             );
